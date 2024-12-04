@@ -146,8 +146,11 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.indexOf(value) !== -1
+    ? str.slice(0, str.indexOf(value)) +
+        str.slice(str.indexOf(value) + value.length)
+    : str;
 }
 
 /**
@@ -162,8 +165,11 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  return str.lastIndexOf(value) !== -1
+    ? str.slice(0, str.lastIndexOf(value)) +
+        str.slice(str.lastIndexOf(value) + value.length)
+    : str;
 }
 
 /**
@@ -432,8 +438,19 @@ function unbracketTag(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  const emails = [];
+  const words = str.split(';');
+  for (let i = 0; i < words.length; i += 1) {
+    if (words[i].includes('@') && words[i].includes('.')) {
+      const parts = words[i].split('@');
+      if (parts.length === 2 && parts[1].includes('.')) {
+        emails.push(words[i]);
+      }
+    }
+  }
+
+  return emails;
 }
 
 /**
